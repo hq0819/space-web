@@ -5,6 +5,5 @@ mysql:
   username: siebel
   password: 19960199
 
-
 server:
   port: 8002
