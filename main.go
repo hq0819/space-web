@@ -1,33 +1,29 @@
 package main
 
 import (
-	"encoding/gob"
 	"fmt"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/session"
 	"space-web/api"
-	"space-web/filter"
 	"space-web/model"
-	"space-web/setting"
+	"time"
 )
 
 func main() {
 	fmt.Println("服务启动中...")
-	engine := gin.Default()
+	app := fiber.New()
+	store := session.New(session.Config{Expiration: 10 * time.Minute})
+	store.RegisterType(model.User{})
+
+	app.Use(store)
 	//初始化配置
-	setting.InitConfig()
+	//setting.InitConfig()
 	//数据库自动迁移
 	//dao.MigrateModels()
-	gob.Register(new(model.User))
-	store := cookie.NewStore([]byte("secret"))
-	store.Options(sessions.Options{MaxAge: 3600 * 2})
-	sessFunc := sessions.Sessions("mysession", store)
-	//登录校验
-	engine.Use(sessFunc, filter.LoginFilter)
-	api.InitUserApi(engine)
-	api.InitArticleApi(engine)
-	err := engine.Run(":9001")
+	api.InitUserApi(app)
+	api.InitArticleApi(app)
+
+	err := app.Listen(":9001")
 	if err != nil {
 		_ = fmt.Errorf("服务启动失败%s", err.Error())
 	}

@@ -1,20 +1,15 @@
 package api
 
 import (
-	"fmt"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-gonic/gin"
-	"space-web/model"
+	"github.com/gofiber/fiber/v2"
 )
 
-func InitArticleApi(gin *gin.Engine) {
-	group := gin.Group("/article")
-	group.GET("/list", GetArticleList)
+func InitArticleApi(app *fiber.App) {
+	group := app.Group("/article")
+	group.Get("/list", GetArticleList)
 }
 
-func GetArticleList(ctx *gin.Context) {
-	u, ok := sessions.Default(ctx).Get("user").(*model.User)
-	if ok && u != nil {
-		fmt.Println(u)
-	}
+func GetArticleList(ctx *fiber.Ctx) error {
+	return ctx.SendString(`成功`)
+
 }
