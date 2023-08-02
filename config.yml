@@ -5,10 +5,6 @@ mysql:
   username: siebel
   password: 19960199
 
-redis:
-  host: 114.115.213.117
-  port: 6379
-  auth: 805345702
 
 server:
   port: 8002
