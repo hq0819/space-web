@@ -3,23 +3,28 @@ package main
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/gofiber/fiber/v2/log"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"space-web/api"
-	"space-web/model"
-	"time"
+	"space-web/dao"
+	"space-web/filter"
+	"space-web/setting"
+	"space-web/utils"
 )
 
 func main() {
 	fmt.Println("服务启动中...")
 	app := fiber.New()
-	store := session.New(session.Config{Expiration: 10 * time.Minute})
-	store.RegisterType(model.User{})
-
-	app.Use(store)
+	app.Use(recover.New(recover.Config{EnableStackTrace: true}))
+	app.Use(filter.LoginFilter)
+	logger := log.DefaultLogger()
+	logger.SetLevel(log.LevelDebug)
+	log.SetLogger(logger)
+	utils.InitSession()
 	//初始化配置
-	//setting.InitConfig()
+	setting.InitConfig()
 	//数据库自动迁移
-	//dao.MigrateModels()
+	dao.MigrateModels()
 	api.InitUserApi(app)
 	api.InitArticleApi(app)
 

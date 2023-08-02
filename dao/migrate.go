@@ -6,7 +6,7 @@ import (
 )
 
 func MigrateModels() {
-	err := setting.DB.Migrator().AutoMigrate(new(model.User), new(model.Article))
+	err := setting.DB.Migrator().AutoMigrate(new(model.User), new(model.Article), new(model.Comment))
 	if err != nil {
 		panic(err)
 	}

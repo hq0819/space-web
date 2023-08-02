@@ -2,26 +2,24 @@ package filter
 
 import (
 	"fmt"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-gonic/gin"
-	"space-web/model"
+	"github.com/gofiber/fiber/v2"
 	"space-web/result"
+	"space-web/utils"
 )
 
-func LoginFilter(ctx *gin.Context) {
-	path := ctx.FullPath()
-	if path == `/user/login` || path == `/user/register` {
-		ctx.Next()
-		return
+func LoginFilter(ctx *fiber.Ctx) error {
+	url := ctx.OriginalURL()
+	fmt.Println(url)
+	if url == `/user/login` || url == `/user/register` {
+		return ctx.Next()
 	}
-	session := sessions.Default(ctx)
-	get := session.Get("user")
-	fmt.Println(get)
-	user, ok := get.(*model.User)
-	if ok && user != nil {
-		ctx.Next()
-		return
+	get, err := utils.UserLocal.Get(ctx)
+	if err != nil {
+		fmt.Println(err)
 	}
-	ctx.JSON(200, result.Fail("请先登录"))
-	return
+	u := get.Get("user")
+	if u != nil {
+		return ctx.Next()
+	}
+	return ctx.JSON(result.Fail("请先登录"))
 }

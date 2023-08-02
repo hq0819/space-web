@@ -9,7 +9,7 @@ import (
 func ModelToMap(obj any, formatTime string, ignoreField ...string) map[string]any {
 	m := make(map[string]any, 16)
 	value := reflect.Indirect(reflect.ValueOf(obj))
-	
+
 	for i := 0; i < value.NumField(); i++ {
 		types := value.Type()
 		field := types.Field(i)

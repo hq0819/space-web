@@ -2,8 +2,13 @@ mysql:
   host: 127.0.0.1
   port: 3306
   database: go
-  username: go
-  password: go
+  username: siebel
+  password: 19960199
+
+redis:
+  host: 114.115.213.117
+  port: 6379
+  auth: 805345702
 
 server:
   port: 8002
