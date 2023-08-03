@@ -15,7 +15,9 @@ import (
 func main() {
 	fmt.Println("服务启动中...")
 	app := fiber.New()
-	app.Use(recover.New(recover.Config{EnableStackTrace: true}))
+	app.Use(recover.New(recover.Config{StackTraceHandler: func(c *fiber.Ctx, e interface{}) {
+		log.Errorf("url%s:", c.OriginalURL())
+	}}))
 	app.Use(filter.LoginFilter)
 	logger := log.DefaultLogger()
 	logger.SetLevel(log.LevelDebug)

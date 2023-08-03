@@ -11,7 +11,7 @@ import (
 var UserLocal *session.Store
 
 func InitSession() {
-	UserLocal = session.New(session.Config{Expiration: time.Minute * 3})
+	UserLocal = session.New(session.Config{KeyLookup: "cookie:access-token", Expiration: time.Minute * 3})
 	UserLocal.RegisterType(model.UserInfo{})
 }
 

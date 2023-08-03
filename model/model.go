@@ -44,6 +44,7 @@ type UserInfo struct {
 	RowId        int    `json:"rowId"`
 	Username     string `json:"username"`
 	Gender       string `json:"gender"`
+	Avatar       string `json:"avatar"`
 	PositionType string `json:"positionType"`
 	CreateTime   string `json:"createTime"`
 }
