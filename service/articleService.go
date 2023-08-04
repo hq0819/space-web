@@ -8,7 +8,7 @@ import (
 
 func GetArticleListByUserId(id int) ([]model.Article, error) {
 	list := make([]model.Article, 0)
-	err := setting.DB.Debug().Model(model.Article{}).Where("user_id", id).Scan(&list).Error
+	err := setting.DB.Debug().Model(model.Article{}).Where("user_id", id).Scan(list).Error
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

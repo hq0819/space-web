@@ -11,7 +11,7 @@ import (
 
 func InitArticleApi(app *fiber.App) {
 	group := app.Group("/article")
-	group.Get("/list", GetArticleList)
+	group.Post("/list", GetArticleList)
 	group.Post("/addArticle", AddArticle)
 }
 

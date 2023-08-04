@@ -18,14 +18,14 @@ type Article struct {
 	Title      string    `json:"title" gorm:"type:varchar(100);comment:标题"`
 	Content    string    `json:"content" gorm:"type:text;comment:文章内容"`
 	CreateTime time.Time `json:"createTime" gorm:"type:timestamp;default:CURRENT_TIMESTAMP;comment:创建时间"`
-	UpdateTime time.Time `json:"update_time" gorm:"type:timestamp;default:CURRENT_TIMESTAMP;comment:修改时间"`
+	UpdateTime time.Time `json:"UpdateTime" gorm:"type:timestamp;default:CURRENT_TIMESTAMP;comment:修改时间"`
 }
 
 type Comment struct {
-	RowId      int       `json:"row_id" gorm:"primaryKey;type:int(10);autoincrement;comment:主键"`
-	UserId     string    `json:"user_id" gorm:"type:int(10);comment:用户id"`
+	RowId      int       `json:"rowId" gorm:"primaryKey;type:int(10);autoincrement;comment:主键"`
+	ArticleId  string    `json:"articleId" gorm:"type:int(10);comment:文章id"`
 	Content    string    `json:"content" gorm:"type:text;comment:内容"`
-	CreateTime time.Time `json:"create_time" gorm:"type:timestamp;comment:创建时间"`
+	CreateTime time.Time `json:"createTime" gorm:"type:timestamp;comment:创建时间"`
 }
 
 func (*Comment) TableName() string {
