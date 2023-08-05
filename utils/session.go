@@ -13,6 +13,7 @@ var UserLocal *session.Store
 func InitSession() {
 	UserLocal = session.New(session.Config{KeyLookup: "cookie:access-token", Expiration: time.Minute * 3})
 	UserLocal.RegisterType(model.UserInfo{})
+	UserLocal.RegisterType(model.LocalDate{})
 }
 
 func GetUserInfo(ctx *fiber.Ctx) model.UserInfo {

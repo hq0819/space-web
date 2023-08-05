@@ -2,11 +2,9 @@ package service
 
 import (
 	"space-web/model"
-	"space-web/setting"
+	"space-web/result"
 )
 
-func QueryCommentList(page *model.PageInfo) *model.PageInfo {
-	var list *[]model.Comment
-	setting.DB.Debug().Model(model.Comment{}).Where(page.Condition).Scan(list)
-	return nil
+func QueryCommentList(page *model.PageInfo) *result.Message {
+	return result.Success(model.StartPage[model.Comment](page))
 }

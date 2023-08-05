@@ -19,6 +19,6 @@ func CommentList(ctx *fiber.Ctx) error {
 	if err != nil {
 		fmt.Println(err)
 	}
-	service.QueryCommentList(pageInfo)
-	return ctx.JSON(nil)
+
+	return ctx.JSON(service.QueryCommentList(pageInfo))
 }
