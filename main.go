@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
@@ -27,6 +28,8 @@ func main() {
 	dao.MigrateModels()
 	//初始化路由
 	router.InitRoute(app)
+	data, _ := json.MarshalIndent(app.Stack(), "", "  ")
+	fmt.Print(string(data))
 	err := app.Listen(":9001")
 	if err != nil {
 		_ = fmt.Errorf("服务启动失败%s", err.Error())

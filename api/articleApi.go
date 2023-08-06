@@ -13,10 +13,10 @@ func InitArticleApi(app *fiber.App) {
 	group := app.Group("/article")
 	group.Post("/list", GetArticleList)
 	group.Post("/addArticle", AddArticle)
-	group.Get("/queryRecommendArticles", QueryRecommendArticle)
-	group.Get("/queryScanCount/:id", QueryScanCount)
-	group.Get("/querySupportCount/:id", QuerySupportCount)
-	group.Get("/queryCommentCount/:id", QueryCommentCount)
+	group.Post("/queryRecommendArticles", QueryRecommendArticle)
+	group.Post("/queryScanCount/:id", QueryScanCount)
+	group.Post("/querySupportCount/:id", QuerySupportCount)
+	group.Post("/queryCommentCount/:id", QueryCommentCount)
 	group.Post("/addSupport/:id", AddSupport)
 	group.Post("/addScanRecord/:id", AddScanRecord)
 
@@ -70,6 +70,7 @@ func AddArticle(ctx *fiber.Ctx) error {
 	_ = ctx.BodyParser(m)
 	m.UserId = info.RowId
 	m.CreateTime = model.LocalDate(time.Now())
+	m.UpdateTime = model.LocalDate(time.Now())
 	err := service.AddArticle(m)
 	if err != nil {
 		return ctx.JSON(result.Fail("创建文章失败"))

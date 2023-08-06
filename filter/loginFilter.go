@@ -5,12 +5,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"space-web/result"
 	"space-web/utils"
+	"strings"
 )
 
 func LoginFilter(ctx *fiber.Ctx) error {
 	url := ctx.OriginalURL()
 	fmt.Println(url)
-	if url == `/user/login` || url == `/user/register` {
+	if url == `/user/login` || url == `/user/register` || strings.ContainsAny(url, "query") {
 		return ctx.Next()
 	}
 	get, err := utils.UserLocal.Get(ctx)

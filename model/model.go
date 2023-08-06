@@ -52,9 +52,10 @@ func (l *LocalDate) MarshalJSON() ([]byte, error) {
 	output := fmt.Sprintf("\"%s\"", t.Format("2006/01/02 15:04:05"))
 	return []byte(output), nil
 }
-func (l *LocalDate) Value() (driver.Value, error) {
+
+func (l LocalDate) Value() (driver.Value, error) {
 	var zeroTime time.Time
-	tt := time.Time(*l)
+	tt := time.Time(l)
 	if tt.UnixNano() == zeroTime.UnixNano() {
 		return nil, nil
 	}
