@@ -24,8 +24,8 @@ func QueryRecommendArticle(page *model.PageInfo) *result.Message {
 
 func ArticleList(pageInfo *model.PageInfo) *result.Message {
 	db := setting.DB.Debug().Select(`t.row_id as articleId,tt.row_id as userid,tt.username,t.title,t.content,t.pic_url as picUrl,date_format(t.create_time,'%Y/%m/%d %H:%i:%s') as createTime`).
-		Table("t_article t").
-		Joins("left join t_user tt on t.user_id = tt.row_id").
+		Table("T_ARTICLE t").
+		Joins("left join T_USER tt on t.user_id = tt.row_id").
 		Order(`t.` + pageInfo.OrderBy)
 	page := model.ToPage[ArticleVO](pageInfo, db)
 	return result.Success(page)
