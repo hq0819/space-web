@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"space-web/model"
+	"space-web/result"
 	"space-web/service"
 	"space-web/utils"
 )
@@ -22,18 +23,16 @@ func Login(ctx *fiber.Ctx) error {
 	user := new(model.User)
 	err := ctx.BodyParser(user)
 	if err != nil {
-		fmt.Println(err)
+		return ctx.JSON(result.Fail("参数解析异常"))
 	}
-	res := service.GetUser(user)
+	res, err := service.GetUser(user)
 	if err != nil {
-		fmt.Println(err)
+		return ctx.JSON(result.Fail("用户名或密码错误"))
 	}
-	session.Set("user", res.Data)
-	err = session.Save()
-	if err != nil {
-		fmt.Println(err)
-	}
-	return ctx.JSON(res)
+	//设置session
+	session.Set("user", res)
+	_ = session.Save()
+	return ctx.JSON(result.Success(res))
 }
 
 func Register(ctx *fiber.Ctx) error {

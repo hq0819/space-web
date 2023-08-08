@@ -6,12 +6,8 @@ import (
 	"space-web/result"
 )
 
-func GetUser(u *model.User) *result.Message {
-	user, err := dao.GetUser(u)
-	if err != nil {
-		return result.Fail("用户名或密码错误!!!")
-	}
-	return result.Success(user)
+func GetUser(u *model.User) (*model.UserInfo, error) {
+	return dao.GetUser(u)
 }
 
 func RegisterUser(u *model.User) *result.Message {
