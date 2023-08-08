@@ -10,7 +10,6 @@ import (
 
 func LoginFilter(ctx *fiber.Ctx) error {
 	url := ctx.OriginalURL()
-	fmt.Println(url)
 	if url == `/user/login` || url == `/user/register` || strings.ContainsAny(url, "query") {
 		return ctx.Next()
 	}

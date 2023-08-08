@@ -21,9 +21,10 @@ type Article struct {
 	UserId     int       `json:"userId" gorm:"type:varchar(10);comment:作者id t_user(row_id)"`
 	Title      string    `json:"title" gorm:"type:varchar(100);comment:标题"`
 	Content    string    `json:"content" gorm:"type:text;comment:文章内容"`
-	PicUrl     string    `json:"picUrl" gorm:"type varchar(100);comment:图片"`
+	PicUrl     string    `json:"picUrl" gorm:"type varchar(500);comment:图片"`
 	CreateTime LocalDate `json:"createTime" gorm:"type:timestamp;default:CURRENT_TIMESTAMP;comment:创建时间"`
 	UpdateTime LocalDate `json:"UpdateTime" gorm:"type:timestamp;default:CURRENT_TIMESTAMP;comment:修改时间"`
+	CoverImg   string    `json:"coverImg" gorm:"type:varchar(500);comment:封面图片"`
 }
 
 type Comment struct {
