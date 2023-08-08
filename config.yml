@@ -6,8 +6,14 @@ mysql:
   password: 19960199
 
 redis:
-  host: 127.0.0.1
+  host: 114.115.213.117
   port: 6379
+  auth: 805345702
 
 server:
   port: 8002
+
+ftp:
+  addr: 114.115.213.117:21
+  username: selfspace
+  password: 805345702
