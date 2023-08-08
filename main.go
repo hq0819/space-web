@@ -21,9 +21,10 @@ func main() {
 	logger := log.DefaultLogger()
 	logger.SetLevel(log.LevelDebug)
 	log.SetLogger(logger)
-	utils.InitSession()
 	//初始化配置
 	setting.InitConfig()
+	//初始化session
+	utils.InitSession()
 	//数据库自动迁移
 	dao.MigrateModels()
 	//初始化路由

@@ -8,8 +8,8 @@ import (
 )
 
 func LoginFtp(conf *setting.FtpConfig) (*ftp.ServerConn, error) {
-	dial, _ := ftp.Dial("114.115.213.117:21", ftp.DialWithTimeout(5*time.Second))
-	err := dial.Login("self", "805345702")
+	dial, _ := ftp.Dial(conf.Addr, ftp.DialWithTimeout(5*time.Second))
+	err := dial.Login(conf.Username, conf.Password)
 	return dial, err
 }
 

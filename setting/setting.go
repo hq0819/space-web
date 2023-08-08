@@ -33,13 +33,16 @@ func InitRedis(config *redisConfig) {
 	})
 	Rdb = client
 }
+func InitFtp(config *FtpConfig) {
+	FtpConf = config
+}
 
 func InitConfig() {
 	vi := viper.New()
 	vi.SetConfigFile("config.yml")
 	mysqlConfig := new(MysqlConfig)
 	redisConfig := new(redisConfig)
-	FtpConf := new(FtpConfig)
+	ftpConf := new(FtpConfig)
 	err := vi.ReadInConfig()
 	if err != nil {
 		fmt.Println(err)
@@ -50,7 +53,7 @@ func InitConfig() {
 	_ = vi.UnmarshalKey("redis", redisConfig, func(config *mapstructure.DecoderConfig) {
 		config.TagName = "json"
 	})
-	_ = vi.UnmarshalKey("ftp", FtpConf, func(config *mapstructure.DecoderConfig) {
+	_ = vi.UnmarshalKey("ftp", ftpConf, func(config *mapstructure.DecoderConfig) {
 		config.TagName = "json"
 	})
 	if err != nil {
@@ -60,7 +63,7 @@ func InitConfig() {
 	//初始化数据库
 	InitDB(mysqlConfig)
 	InitRedis(redisConfig)
-
+	InitFtp(ftpConf)
 }
 
 type MysqlConfig struct {
@@ -78,6 +81,7 @@ type redisConfig struct {
 }
 
 type FtpConfig struct {
+	Addr     string `json:"addr"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }

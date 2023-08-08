@@ -12,4 +12,6 @@ func InitRoute(app *fiber.App) {
 	api.InitArticleApi(app)
 	//评论api
 	api.InitCommentApi(app)
+
+	api.InitFileApi(app)
 }
